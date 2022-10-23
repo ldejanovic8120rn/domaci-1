@@ -1,1 +1,53 @@
-<p>language-detection works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Language Detection</h1>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <label for="ld-text">Your text:</label>
+      <textarea [(ngModel)]="text" class="form-control" id="ld-text" rows="6"></textarea>
+      <div class="error-message text-danger" *ngIf="hasText()"> Text is required! </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4 text-center">
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="clean" class="form-check-input" type="checkbox" id="clean" value="clean">
+        <label class="form-check-label" for="clean">clean</label>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row justify-content-center">
+    <div class="col-md-3 d-grid">
+      <button [disabled]="hasText()" type="button" class="btn btn-primary btn-block" (click)="detectText()">Submit</button>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="row justify-content-center">
+    <h3 id="lang-title">Detected languages:</h3>
+
+    <div *ngFor="let lang of detectedLanguages" class="row justify-content-center">
+      <div class="col-md-2 text-center">
+        <h6>Language: {{ lang.lang }}</h6>
+      </div>
+      <div class="col-md-2 text-center">
+        <h6>Accuracy: {{ lang.confidence * 100 }}%</h6>
+      </div>
+    </div>
+  </div>
+
+
+</div>
