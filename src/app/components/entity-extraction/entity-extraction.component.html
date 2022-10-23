@@ -1,1 +1,74 @@
-<p>entity-extraction works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Entity Extraction</h1>
+    </div>
+  </div>
+
+  <br><br>
+
+  <!--  text area for text and range slider for min confidence  -->
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <label for="ee-text">Your text:</label>
+      <textarea [(ngModel)]="text" class="form-control" id="ee-text" rows="5"></textarea>
+      <div class="error-message text-danger" *ngIf="hasText()"> Text is required! </div>
+      <br>
+      <label for="confidence" class="form-label">{{ minConfidence }}</label>
+      <input [(ngModel)]="minConfidence" type="range" class="form-range" min="0" max="1" step="0.01" id="confidence">
+    </div>
+  </div>
+
+  <br>
+
+  <!--  checkbox for image, abstract and categories  -->
+  <div class="row justify-content-center">
+    <div class="col-md-4 text-center">
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="image" class="form-check-input" type="checkbox" id="image" value="image">
+        <label class="form-check-label" for="image">image</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="abstract" class="form-check-input" type="checkbox" id="abstract" value="abstract">
+        <label class="form-check-label" for="abstract">abstract</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="categories" class="form-check-input" type="checkbox" id="categories" value="categories">
+        <label class="form-check-label" for="categories">categories</label>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <!-- fetching entities -->
+  <div class="row justify-content-center">
+    <div class="col-md-3 d-grid">
+      <button [disabled]="hasText()" type="button" class="btn btn-primary btn-block" (click)="fetchEntities()">Submit</button>
+    </div>
+  </div>
+
+  <br>
+
+  <!-- show response -->
+  <div *ngFor="let entity of entities" class="row justify-content-center entity">
+    <hr>
+    <div class="col-md-2">
+      <h6>{{ entity.title }}</h6>
+      <p>Accuracy: {{ entity.confidence * 100 }}% </p>
+    </div>
+    <div *ngIf="entity.image" class="row-cols-auto">
+      <img class="entity-img" [src]="entity.image.thumbnail" width="50px" height="50px" [alt]="entity.label">
+    </div>
+    <div *ngIf="entity.abstract" class="row">
+      <h6>Abstract:</h6>
+      <p>{{ entity.abstract }}</p>
+    </div>
+    <div *ngIf="entity.categories" class="row">
+      <h6>Categories:</h6>
+      <p>{{ entity.categories }}</p>
+    </div>
+    <hr>
+  </div>
+
+</div>

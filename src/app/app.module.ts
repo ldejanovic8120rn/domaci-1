@@ -10,6 +10,7 @@ import { TextSimilarityComponent } from './components/text-similarity/text-simil
 import { LanguageDetectionComponent } from './components/language-detection/language-detection.component';
 import { SentimentAnalysisComponent } from './components/sentiment-analysis/sentiment-analysis.component';
 import { HistoryComponent } from './components/history/history.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { HistoryComponent } from './components/history/history.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule
   ],
