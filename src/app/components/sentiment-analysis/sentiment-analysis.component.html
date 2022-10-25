@@ -1,1 +1,51 @@
-<p>sentiment-analysis works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Sentiment Analysis</h1>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <label for="sa-text">Your text:</label>
+      <textarea [(ngModel)]="text" class="form-control" id="sa-text" rows="6"></textarea>
+      <div class="error-message text-danger" *ngIf="hasText()"> Text is required! </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row justify-content-center">
+    <label class="col-auto">Language: </label>
+    <div class="form-check col-auto">
+      <input [(ngModel)]="lang" class="form-check-input" type="radio" name="lang" id="langEn" value="en" checked>
+      <label class="form-check-label" for="langEn">English</label>
+    </div>
+    <div class="form-check col-auto">
+      <input [(ngModel)]="lang" class="form-check-input" type="radio" name="lang" id="langIt" value="it">
+      <label class="form-check-label" for="langIt">Italian</label>
+    </div>
+    <div class="form-check col-auto">
+      <input [(ngModel)]="lang" class="form-check-input" type="radio" name="lang" id="auto" value="auto">
+      <label class="form-check-label" for="auto">Auto</label>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-2 d-grid p-4">
+      <button type="button" [disabled]="hasText()" class="btn btn-primary btn-block" (click)="getAnalysis()">Submit</button>
+    </div>
+  </div>
+
+  <div *ngIf="score !== undefined && type !== undefined" class="row justify-content-center">
+    <div class="col-md-2 text-center">
+      <h6>Score: {{ score }}</h6>
+    </div>
+    <div class="col-md-2 text-center">
+      <h6 [style.color]="getColorCode()">Type: {{ type }}</h6>
+    </div>
+  </div>
+
+</div>
