@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {EntityExtraction} from "../models/entity-extraction";
+import {HistoryService} from "./history.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class EntityExtractionService {
 
   private readonly entityExtractionApi = environment.entityExtractionApi;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private historyService: HistoryService) { }
 
 
   getEntityExtractions(text: string, minConfidence: number, args: string[]): Observable<EntityExtraction> {
@@ -27,6 +28,7 @@ export class EntityExtractionService {
 
     url += "&token=" + localStorage.getItem("token");
 
+    this.historyService.addHistory(url, new Date());
     return this.httpClient.get<EntityExtraction>(url);
   }
 
